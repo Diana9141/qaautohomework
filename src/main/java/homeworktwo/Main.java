@@ -1,4 +1,4 @@
-package homework2;
+package homeworktwo;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
