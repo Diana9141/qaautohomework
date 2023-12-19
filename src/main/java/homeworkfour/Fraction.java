@@ -9,7 +9,7 @@ public class Fraction {
     public Fraction(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
-        if (denominator==0) throw new IllegalArgumentException("Denominator cannot be zero.");
+        if (denominator == 0) throw new IllegalArgumentException("Denominator cannot be zero.");
     }
 
     @Override
