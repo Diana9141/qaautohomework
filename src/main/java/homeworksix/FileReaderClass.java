@@ -12,7 +12,7 @@ public class FileReaderClass {
                 System.out.println(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+                System.out.println("Exception occurred " + e.getMessage());
             throw new CustomUncheckedException("Error while reading file", e);
         }
     }
