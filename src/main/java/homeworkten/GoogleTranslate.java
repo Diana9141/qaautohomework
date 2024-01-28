@@ -49,7 +49,7 @@ public class GoogleTranslate {
         open("");
         originalText.sendKeys("Я круто вивчу TestNG");
         otherLanguagesButton.click();
-        $x("(//div[@data-language-code='" + language + "'])[2]").shouldBe(visible).click();
+        $x("(//div[@data-language-code='" + language + "'])[2]").shouldBe(interactable).click();
         translationText.shouldHave(text(translation));
     }
 
