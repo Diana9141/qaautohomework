@@ -26,7 +26,6 @@ public class TrelloTest {
     private final SelenideElement CARD_TITLE_FIELD = $x("//textarea[@data-testid=\"list-card-composer-textarea\"]");
 
     private final SelenideElement EDIT_TEST_CARD = $("li[data-testid=\"list-card\"]");
-    private final SelenideElement DESCRIPTION_FAKE_AREA = $(".js-description-fake-text-area");
     private final SelenideElement DESCRIPTION_INPUT = $x("(//div[@id=\"ak-editor-textarea\"])[1]");
     private final SelenideElement CONFIRMATION_DESC_BUTTON = $(".confirm");
     private final SelenideElement DESCRIPTION_FIELD = $(".js-show-with-desc");
@@ -35,6 +34,9 @@ public class TrelloTest {
     private final SelenideElement COMMENT_AREA = $x("(//div[@id=\"ak-editor-textarea\"])[2]");
     private final SelenideElement SAVE_COMMENT_BUTTON = $("button[data-testid=\"card-back-comment-save-button\"]");
     private final SelenideElement COMMENT_TEXT = $("div.current-comment > p");
+    private final SelenideElement ARCHIVE_CARD_BUTTON = $("a.js-archive-card");
+    private final SelenideElement DELETE_CARD_BUTTON = $("a.js-delete-card");
+    private final SelenideElement DELETE_CONFIRM_BUTTON = $("input.js-confirm");
 
     @BeforeMethod()
     public static void setUp() {
@@ -82,7 +84,7 @@ public class TrelloTest {
         EDIT_TEST_CARD.shouldBe(visible);
     }
 
-    @Test()
+    @Test(dependsOnMethods = "createTask")
     void addDescriptionToTask() throws InterruptedException {
         open("");
         LOGIN_BUTTON.click();
@@ -102,7 +104,7 @@ public class TrelloTest {
         DESCRIPTION_FIELD.shouldHave(text("Test Desc"));
     }
 
-    @Test()
+    @Test(dependsOnMethods = "addDescriptionToTask")
     void addCommentToTask() throws InterruptedException {
         open("");
         LOGIN_BUTTON.click();
@@ -115,6 +117,7 @@ public class TrelloTest {
         CARD_TITLE_FIELD.sendKeys("Test Name");
         CARD_TITLE_FIELD.pressEnter().pressEnter();
         Thread.sleep(3000);
+
         EDIT_TEST_CARD.shouldBe(interactable).click();
         COMMENT_INPUT.shouldBe(visible).click();
         COMMENT_AREA.sendKeys("Test Comment");
@@ -135,10 +138,11 @@ public class TrelloTest {
         CARD_TITLE_FIELD.sendKeys("Test Name");
         CARD_TITLE_FIELD.pressEnter().pressEnter();
         Thread.sleep(3000);
+
         EDIT_TEST_CARD.shouldBe(interactable).click();
-        $("a.js-archive-card").click();
-        $("a.js-delete-card").click();
-        $("input.js-confirm").click();
+        ARCHIVE_CARD_BUTTON.click();
+        DELETE_CARD_BUTTON.click();
+        DELETE_CONFIRM_BUTTON.click();
         EDIT_TEST_CARD.should(disappear);
     }
 
