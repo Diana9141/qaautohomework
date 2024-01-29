@@ -8,7 +8,7 @@ import org.testng.annotations.*;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class GoogleTranslate {
+public class GoogleTranslateTest {
     private final SelenideElement originalText = $x("//textarea[@aria-label=\"Текст оригіналу\"]");
     private final SelenideElement otherLanguagesButton = $x("(//button[@aria-label=\"Інші мови перекладу\"])[1]");
     private final SelenideElement translationText = $x("//span[@jsname='W297wb']");
