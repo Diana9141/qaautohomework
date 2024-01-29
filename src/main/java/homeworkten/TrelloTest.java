@@ -38,22 +38,10 @@ public class TrelloTest {
     public static void setUp() {
         Configuration.baseUrl = "https://trello.com/";
         Configuration.browserSize = "1920x1080";
-        Configuration.timeout = 7000;
     }
 
     @Test()
-    void trelloLogin() {
-        open("");
-        LOGIN_BUTTON.click();
-        LOGIN_FIELD.setValue("diana.braun@gen.tech");
-        LOGIN_SUBMIT.click();
-        PASS_FIELD.setValue("19111994qa");
-        LOGIN_SUBMIT.click();
-        WORKSPACES_TITLE.shouldBe(visible);
-    }
-
-    @Test(dependsOnMethods = "trelloLogin")
-    void goToDashboard() {
+    void loginAndGoToDashboard() {
         open("");
         LOGIN_BUTTON.click();
         LOGIN_FIELD.setValue("diana.braun@gen.tech");
@@ -65,7 +53,7 @@ public class TrelloTest {
         DASHBOARD_TITLE.shouldHave(text("Моя дошка Trello"));
     }
 
-    @Test(dependsOnMethods = "goToDashboard")
+    @Test(dependsOnMethods = "loginAndGoToDashboard")
     void createTask() {
         open("");
         LOGIN_BUTTON.click();
