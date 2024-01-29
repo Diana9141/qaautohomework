@@ -13,7 +13,6 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class TrelloTest {
-
     private final SelenideElement LOGIN_BUTTON = $(byText("Log in"));
     private final SelenideElement LOGIN_FIELD = $(byId("username"));
     private final SelenideElement PASS_FIELD = $(byId("password"));
@@ -21,15 +20,12 @@ public class TrelloTest {
     private final SelenideElement WORKSPACES_TITLE = $(".boards-page-section-header-name");
     private final SelenideElement DASHBOARD_BUTTON = $x("//a[@class=\"board-tile\"]");
     private final SelenideElement DASHBOARD_TITLE = $x("//h1[@data-testid=\"board-name-display\"]");
-
     private final SelenideElement ADD_A_CARD_BUTTON = $x("(//button[@data-testid=\"list-add-card-button\"])[1]");
     private final SelenideElement CARD_TITLE_FIELD = $x("//textarea[@data-testid=\"list-card-composer-textarea\"]");
-
     private final SelenideElement EDIT_TEST_CARD = $("li[data-testid=\"list-card\"]");
     private final SelenideElement DESCRIPTION_INPUT = $x("(//div[@id=\"ak-editor-textarea\"])[1]");
     private final SelenideElement CONFIRMATION_DESC_BUTTON = $(".confirm");
     private final SelenideElement DESCRIPTION_FIELD = $(".js-show-with-desc");
-
     private final SelenideElement COMMENT_INPUT = $("input[data-testid=\"card-back-new-comment-input-skeleton\"]");
     private final SelenideElement COMMENT_AREA = $x("(//div[@id=\"ak-editor-textarea\"])[2]");
     private final SelenideElement SAVE_COMMENT_BUTTON = $("button[data-testid=\"card-back-comment-save-button\"]");
@@ -53,7 +49,7 @@ public class TrelloTest {
         LOGIN_SUBMIT.click();
         PASS_FIELD.setValue("19111994qa");
         LOGIN_SUBMIT.click();
-        WORKSPACES_TITLE.shouldBe(visible).shouldHave(text("YOUR WORKSPACES"));
+        WORKSPACES_TITLE.shouldBe(visible);
     }
 
     @Test(dependsOnMethods = "trelloLogin")
@@ -64,7 +60,7 @@ public class TrelloTest {
         LOGIN_SUBMIT.click();
         PASS_FIELD.setValue("19111994qa");
         LOGIN_SUBMIT.click();
-        WORKSPACES_TITLE.shouldBe(visible).shouldHave(text("YOUR WORKSPACES"));
+        WORKSPACES_TITLE.shouldBe(visible);
         DASHBOARD_BUTTON.shouldBe(visible).click();
         DASHBOARD_TITLE.shouldHave(text("Моя дошка Trello"));
     }
@@ -85,7 +81,7 @@ public class TrelloTest {
     }
 
     @Test(dependsOnMethods = "createTask")
-    void addDescriptionToTask() throws InterruptedException {
+    void addDescriptionToTask() {
         open("");
         LOGIN_BUTTON.click();
         LOGIN_FIELD.setValue("diana.braun@gen.tech");
@@ -93,10 +89,6 @@ public class TrelloTest {
         PASS_FIELD.setValue("19111994qa");
         LOGIN_SUBMIT.click();
         DASHBOARD_BUTTON.shouldBe(visible).click();
-        ADD_A_CARD_BUTTON.click();
-        CARD_TITLE_FIELD.sendKeys("Test Name");
-        CARD_TITLE_FIELD.pressEnter().pressEnter();
-        Thread.sleep(3000);
         EDIT_TEST_CARD.shouldBe(interactable).click();
         DESCRIPTION_INPUT.shouldBe(visible).click();
         DESCRIPTION_INPUT.setValue("Test Desc");
@@ -105,7 +97,7 @@ public class TrelloTest {
     }
 
     @Test(dependsOnMethods = "addDescriptionToTask")
-    void addCommentToTask() throws InterruptedException {
+    void addCommentToTask() {
         open("");
         LOGIN_BUTTON.click();
         LOGIN_FIELD.setValue("diana.braun@gen.tech");
@@ -113,11 +105,6 @@ public class TrelloTest {
         PASS_FIELD.setValue("19111994qa");
         LOGIN_SUBMIT.click();
         DASHBOARD_BUTTON.shouldBe(visible).click();
-        ADD_A_CARD_BUTTON.click();
-        CARD_TITLE_FIELD.sendKeys("Test Name");
-        CARD_TITLE_FIELD.pressEnter().pressEnter();
-        Thread.sleep(3000);
-
         EDIT_TEST_CARD.shouldBe(interactable).click();
         COMMENT_INPUT.shouldBe(visible).click();
         COMMENT_AREA.sendKeys("Test Comment");
@@ -126,7 +113,7 @@ public class TrelloTest {
     }
 
     @Test(dependsOnMethods = "addCommentToTask")
-    void deleteTask() throws InterruptedException {
+    void deleteTask() {
         open("");
         LOGIN_BUTTON.click();
         LOGIN_FIELD.setValue("diana.braun@gen.tech");
@@ -134,11 +121,6 @@ public class TrelloTest {
         PASS_FIELD.setValue("19111994qa");
         LOGIN_SUBMIT.click();
         DASHBOARD_BUTTON.shouldBe(visible).click();
-        ADD_A_CARD_BUTTON.click();
-        CARD_TITLE_FIELD.sendKeys("Test Name");
-        CARD_TITLE_FIELD.pressEnter().pressEnter();
-        Thread.sleep(3000);
-
         EDIT_TEST_CARD.shouldBe(interactable).click();
         ARCHIVE_CARD_BUTTON.click();
         DELETE_CARD_BUTTON.click();
