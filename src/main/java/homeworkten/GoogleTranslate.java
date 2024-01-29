@@ -41,7 +41,7 @@ public class GoogleTranslate {
 
     @BeforeMethod()
     public static void setUp() {
-        Configuration.baseUrl = "https://translate.google.com/";
+        Configuration.baseUrl = "https://translate.google.com/?hl=uk";
         Configuration.browserSize = "1920x1080";
     }
 
