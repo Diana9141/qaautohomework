@@ -12,6 +12,7 @@ public class GoogleTranslate {
     private final SelenideElement originalText = $x("//textarea[@aria-label=\"Текст оригіналу\"]");
     private final SelenideElement otherLanguagesButton = $x("(//button[@aria-label=\"Інші мови перекладу\"])[1]");
     private final SelenideElement translationText = $x("//span[@jsname='W297wb']");
+    public SelenideElement languageCode;
 
     @DataProvider(name = "languageCodesAndTranslations")
     public static Object[][] strings() {
@@ -38,7 +39,7 @@ public class GoogleTranslate {
         };
     }
 
-    @BeforeMethod
+    @BeforeMethod()
     public static void setUp() {
         Configuration.baseUrl = "https://translate.google.com/";
         Configuration.browserSize = "1920x1080";
@@ -46,10 +47,14 @@ public class GoogleTranslate {
 
     @Test(dataProvider = "languageCodesAndTranslations")
     void googleTranslateTo20Languages(String language, String translation) {
+        //arrange a selector with country code
+        languageCode = $x("(//div[@data-language-code='" + language + "'])[2]");
+
+        //steps for translation
         open("");
         originalText.sendKeys("Я круто вивчу TestNG");
         otherLanguagesButton.click();
-        $x("(//div[@data-language-code='" + language + "'])[2]").shouldBe(interactable).click();
+        languageCode.doubleClick();
         translationText.shouldHave(text(translation));
     }
 
