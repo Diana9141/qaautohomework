@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -34,20 +35,24 @@ public class TrelloTest {
     private final SelenideElement DELETE_CARD_BUTTON = $("a.js-delete-card");
     private final SelenideElement DELETE_CONFIRM_BUTTON = $("input.js-confirm");
 
-    @BeforeMethod()
-    public static void setUp() {
-        Configuration.baseUrl = "https://trello.com/";
-        Configuration.browserSize = "1920x1080";
+    public static void login() {
         open("");
         LOGIN_BUTTON.click();
         LOGIN_FIELD.setValue("diana.braun@gen.tech");
         LOGIN_SUBMIT.click();
         PASS_FIELD.setValue("19111994qa");
         LOGIN_SUBMIT.click();
+    } //can also be done with cookies insert
+
+    @BeforeMethod
+    public static void setUp() {
+        Configuration.baseUrl = "https://trello.com/";
+        Configuration.browserSize = "1920x1080";
     }
 
     @Test()
     void goToDashboard() {
+        login();
         WORKSPACES_TITLE.shouldBe(visible);
         DASHBOARD_BUTTON.shouldBe(visible).click();
         DASHBOARD_TITLE.shouldHave(text("Моя дошка Trello"));
@@ -55,6 +60,7 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "goToDashboard")
     void createTask() {
+        login();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         ADD_A_CARD_BUTTON.click();
         CARD_TITLE_FIELD.sendKeys("Test Name");
@@ -64,6 +70,7 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "createTask")
     void addDescriptionToTask() {
+        login();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         EDIT_TEST_CARD.shouldBe(interactable).click();
         DESCRIPTION_INPUT.shouldBe(visible).click();
@@ -74,6 +81,7 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "addDescriptionToTask")
     void addCommentToTask() {
+        login();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         EDIT_TEST_CARD.shouldBe(interactable).click();
         COMMENT_INPUT.shouldBe(visible).click();
@@ -84,6 +92,7 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "addCommentToTask")
     void deleteTask() {
+        login();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         EDIT_TEST_CARD.shouldBe(interactable).click();
         ARCHIVE_CARD_BUTTON.click();
