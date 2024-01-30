@@ -13,10 +13,10 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class TrelloTest {
-    private final SelenideElement LOGIN_BUTTON = $(byText("Log in"));
-    private final SelenideElement LOGIN_FIELD = $(byId("username"));
-    private final SelenideElement PASS_FIELD = $(byId("password"));
-    private final SelenideElement LOGIN_SUBMIT = $(byId("login-submit"));
+    private static final SelenideElement LOGIN_BUTTON = $(byText("Log in"));
+    private static final SelenideElement LOGIN_FIELD = $(byId("username"));
+    private static final SelenideElement PASS_FIELD = $(byId("password"));
+    private static final SelenideElement LOGIN_SUBMIT = $(byId("login-submit"));
     private final SelenideElement WORKSPACES_TITLE = $(".boards-page-section-header-name");
     private final SelenideElement DASHBOARD_BUTTON = $x("//a[@class=\"board-tile\"]");
     private final SelenideElement DASHBOARD_TITLE = $x("//h1[@data-testid=\"board-name-display\"]");
