@@ -38,16 +38,16 @@ public class TrelloTest {
     public static void setUp() {
         Configuration.baseUrl = "https://trello.com/";
         Configuration.browserSize = "1920x1080";
-    }
-
-    @Test()
-    void loginAndGoToDashboard() {
         open("");
         LOGIN_BUTTON.click();
         LOGIN_FIELD.setValue("diana.braun@gen.tech");
         LOGIN_SUBMIT.click();
         PASS_FIELD.setValue("19111994qa");
         LOGIN_SUBMIT.click();
+    }
+
+    @Test()
+    void loginAndGoToDashboard() {
         WORKSPACES_TITLE.shouldBe(visible);
         DASHBOARD_BUTTON.shouldBe(visible).click();
         DASHBOARD_TITLE.shouldHave(text("Моя дошка Trello"));
@@ -55,12 +55,6 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "loginAndGoToDashboard")
     void createTask() {
-        open("");
-        LOGIN_BUTTON.click();
-        LOGIN_FIELD.setValue("diana.braun@gen.tech");
-        LOGIN_SUBMIT.click();
-        PASS_FIELD.setValue("19111994qa");
-        LOGIN_SUBMIT.click();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         ADD_A_CARD_BUTTON.click();
         CARD_TITLE_FIELD.sendKeys("Test Name");
@@ -70,12 +64,6 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "createTask")
     void addDescriptionToTask() {
-        open("");
-        LOGIN_BUTTON.click();
-        LOGIN_FIELD.setValue("diana.braun@gen.tech");
-        LOGIN_SUBMIT.click();
-        PASS_FIELD.setValue("19111994qa");
-        LOGIN_SUBMIT.click();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         EDIT_TEST_CARD.shouldBe(interactable).click();
         DESCRIPTION_INPUT.shouldBe(visible).click();
@@ -86,12 +74,6 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "addDescriptionToTask")
     void addCommentToTask() {
-        open("");
-        LOGIN_BUTTON.click();
-        LOGIN_FIELD.setValue("diana.braun@gen.tech");
-        LOGIN_SUBMIT.click();
-        PASS_FIELD.setValue("19111994qa");
-        LOGIN_SUBMIT.click();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         EDIT_TEST_CARD.shouldBe(interactable).click();
         COMMENT_INPUT.shouldBe(visible).click();
@@ -102,12 +84,6 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "addCommentToTask")
     void deleteTask() {
-        open("");
-        LOGIN_BUTTON.click();
-        LOGIN_FIELD.setValue("diana.braun@gen.tech");
-        LOGIN_SUBMIT.click();
-        PASS_FIELD.setValue("19111994qa");
-        LOGIN_SUBMIT.click();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         EDIT_TEST_CARD.shouldBe(interactable).click();
         ARCHIVE_CARD_BUTTON.click();
