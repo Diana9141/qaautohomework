@@ -35,7 +35,7 @@ public class IMDBTest {
         Configuration.browserSize = "1920x1080";
     }
 
-    @Test(dataProvider = "movieDataProvider", timeOut = 7000)
+    @Test(dataProvider = "movieDataProvider", timeOut = 7000, retryAnalyzer = Retry.class)
     public void checkMovieInfo(String title, String year, String rating, String movieUrl) {
         open(movieUrl);
         String pageFilmTitle = $("span.hero__primary-text").text();
