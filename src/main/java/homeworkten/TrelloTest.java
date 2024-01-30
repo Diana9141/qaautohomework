@@ -48,11 +48,11 @@ public class TrelloTest {
     public static void setUp() {
         Configuration.baseUrl = "https://trello.com/";
         Configuration.browserSize = "1920x1080";
+        login();
     }
 
     @Test()
     void goToDashboard() {
-        login();
         WORKSPACES_TITLE.shouldBe(visible);
         DASHBOARD_BUTTON.shouldBe(visible).click();
         DASHBOARD_TITLE.shouldHave(text("Моя дошка Trello"));
@@ -60,7 +60,6 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "goToDashboard")
     void createTask() {
-        login();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         ADD_A_CARD_BUTTON.click();
         CARD_TITLE_FIELD.sendKeys("Test Name");
@@ -70,7 +69,6 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "createTask")
     void addDescriptionToTask() {
-        login();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         EDIT_TEST_CARD.shouldBe(interactable).click();
         DESCRIPTION_INPUT.shouldBe(visible).click();
@@ -81,7 +79,6 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "addDescriptionToTask")
     void addCommentToTask() {
-        login();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         EDIT_TEST_CARD.shouldBe(interactable).click();
         COMMENT_INPUT.shouldBe(visible).click();
@@ -92,7 +89,6 @@ public class TrelloTest {
 
     @Test(dependsOnMethods = "addCommentToTask")
     void deleteTask() {
-        login();
         DASHBOARD_BUTTON.shouldBe(visible).click();
         EDIT_TEST_CARD.shouldBe(interactable).click();
         ARCHIVE_CARD_BUTTON.click();
