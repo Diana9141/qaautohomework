@@ -47,13 +47,13 @@ public class TrelloTest {
     }
 
     @Test()
-    void loginAndGoToDashboard() {
+    void goToDashboard() {
         WORKSPACES_TITLE.shouldBe(visible);
         DASHBOARD_BUTTON.shouldBe(visible).click();
         DASHBOARD_TITLE.shouldHave(text("Моя дошка Trello"));
     }
 
-    @Test(dependsOnMethods = "loginAndGoToDashboard")
+    @Test(dependsOnMethods = "goToDashboard")
     void createTask() {
         DASHBOARD_BUTTON.shouldBe(visible).click();
         ADD_A_CARD_BUTTON.click();
