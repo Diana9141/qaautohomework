@@ -17,7 +17,7 @@ public class IMDBTest {
 
         Object[][] movies = new Object[99][4];
 
-        for (int i = 1; i <100; i++) {
+        for (int i = 1; i < 100; i++) {
             String title = $x("(//a[@class=\"ipc-title-link-wrapper\"])[" + i + "]").text().trim();
             String year = $x("((//span[@class=\"sc-1e00898e-8 hsHAHC cli-title-metadata-item\"]/..)[" + i + "])/child::*[1]").text();
             String rating = $x("(//span[@data-testid='ratingGroup--imdb-rating'])[" + i + "]").text().substring(0, 4);
@@ -32,9 +32,10 @@ public class IMDBTest {
     @BeforeMethod
     static void setup() {
         Configuration.baseUrl = "https://www.imdb.com";
+        Configuration.browserSize = "1920x1080";
     }
 
-    @Test(dataProvider = "movieDataProvider")
+    @Test(dataProvider = "movieDataProvider", timeOut = 7000)
     public void checkMovieInfo(String title, String year, String rating, String movieUrl) {
         open(movieUrl);
         String pageFilmTitle = $("span.hero__primary-text").text();
