@@ -1,46 +1,51 @@
 package homeworkten;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class IMDBTest {
-    private final ElementsCollection years = $$("div[class=\"sc-1e00898e-7 hcJWUf cli-title-metadata\"]");
-    private final ElementsCollection titles = $$("a > h3.ipc-title__text");
-    private final ElementsCollection ratings = $$("span[data-testid=\"ratingGroup--imdb-rating\"]");
+    @DataProvider(name = "movieDataProvider")
+    public static Object[][] movieDataProvider() {
+        open("https://www.imdb.com/chart/top/");
 
-    private final SelenideElement pageFilmTitle = $("span.hero__primary-text");
-    private final SelenideElement pageFilmRating = $x("(//span[@class=\"sc-bde20123-1 cMEQkK\"])[1]");
-    private final SelenideElement pageFilmYear = $("a[href=\"/title/tt0111161/releaseinfo?ref_=tt_ov_rdat\"]");
+        Object[][] movies = new Object[99][4];
 
-    @DataProvider(name = "testDataIMDB")
-    public static Object[][] imdb() {
-        return new Object[][]{{"Втеча з Шоушенка", "1994", "9.3"}};
+        for (int i = 1; i <100; i++) {
+            String title = $x("(//a[@class=\"ipc-title-link-wrapper\"])[" + i + "]").text().trim();
+            String year = $x("((//span[@class=\"sc-1e00898e-8 hsHAHC cli-title-metadata-item\"]/..)[" + i + "])/child::*[1]").text();
+            String rating = $x("(//span[@data-testid='ratingGroup--imdb-rating'])[" + i + "]").text().substring(0, 4);
+            String movieUrl = $x("(//a[@class='ipc-title-link-wrapper'])[" + i + "]").attr("href");
+            movies[i - 1] = new Object[]{title, year, rating, movieUrl};
+        }
+
+        closeWebDriver();
+        return movies;
     }
 
-    @BeforeMethod()
-    public static void setUp() {
-        Configuration.baseUrl = "https://imdb.com/chart/top";
-        Configuration.browserSize = "1920x1080";
+    @BeforeMethod
+    static void setup() {
+        Configuration.baseUrl = "https://www.imdb.com";
     }
 
-    @Test(dataProvider = "testDataIMDB")
-    void testIMDB(String title, String year, String rating) {
-        open("");
-        $(byText("1. Втеча з Шоушенка")).click();
+    @Test(dataProvider = "movieDataProvider")
+    public void checkMovieInfo(String title, String year, String rating, String movieUrl) {
+        open(movieUrl);
+        String pageFilmTitle = $("span.hero__primary-text").text();
+        String pageFilmRating = $x("(//span[@class=\"sc-bde20123-1 cMEQkK\"])[1]").text();
+        String pageFilmYear = $x("(//a[@class=\"ipc-link ipc-link--baseAlt ipc-link--inherit-color\"])[6]").text();
 
-        pageFilmTitle.shouldHave(text(title));
-        pageFilmYear.shouldHave(text(year));
-        pageFilmRating.shouldHave(text(rating));
+        Assert.assertEquals(pageFilmTitle, title.substring(3).trim());
+        Assert.assertEquals(pageFilmRating, rating.trim());
+        Assert.assertEquals(pageFilmYear, year);
+
+        System.out.println(title + " (" + year + "): Перевірка пройшла успішно");
     }
 
     @AfterMethod()
