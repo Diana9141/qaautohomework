@@ -1,9 +1,7 @@
 package homeworkten;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -47,10 +45,5 @@ public class IMDBTest {
         Assert.assertEquals(pageFilmYear, year);
 
         System.out.println(title + " (" + year + "): Перевірка пройшла успішно");
-    }
-
-    @AfterMethod()
-    public static void tearDown() {
-        WebDriverRunner.closeWebDriver();
     }
 }
