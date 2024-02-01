@@ -1,4 +1,4 @@
-package homeworkten;
+package hw10;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;

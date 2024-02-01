@@ -1,4 +1,4 @@
-package homeworktwo;
+package hw2;
 
 import java.math.BigDecimal;
 

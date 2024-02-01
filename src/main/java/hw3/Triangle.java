@@ -1,4 +1,4 @@
-package homeworkthree;
+package hw3;
 
 public class Triangle {
 

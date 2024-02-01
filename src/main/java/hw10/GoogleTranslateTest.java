@@ -1,4 +1,4 @@
-package homeworkten;
+package hw10;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;

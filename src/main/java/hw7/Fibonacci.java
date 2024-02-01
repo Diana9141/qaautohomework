@@ -1,4 +1,4 @@
-package homeworkseven;
+package hw7;
 
 
 import java.util.NoSuchElementException;

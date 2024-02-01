@@ -1,4 +1,4 @@
-package homeworkfive;
+package hw5;
 
 public class Pagination {
 

@@ -1,4 +1,4 @@
-package homeworksix;
+package hw6;
 
 
 class CustomUncheckedException extends RuntimeException {
