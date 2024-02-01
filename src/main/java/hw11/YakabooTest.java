@@ -26,17 +26,16 @@ public class YakabooTest {
 
     @Test()
     void searchBook() {
-        String searchText = "Мати і не мати";
+        String searchText = "Кіт";
         searchInput.setValue(searchText).pressEnter();
         firstBookFromSearch.should(visible).click();
         marketingBanner.click();
 
-        if(paperBookPrice.isDisplayed() && !(availabilityButton.exists())) {
-            System.out.println("Paper book is there");
+        if (paperBookPrice.isDisplayed() && !(availabilityButton.exists())) {
+            System.out.println("Paper book is there: " + paperBookPrice.text());
         } else if (electronicBookPrice.isDisplayed() && !(availabilityButton.exists())) {
-            System.out.println("Electronic book is there");
-        }
-        else {
+            System.out.println("Electronic book is there: " + electronicBookPrice.text());
+        } else {
             System.out.println("NOT THERE");
         }
     }
