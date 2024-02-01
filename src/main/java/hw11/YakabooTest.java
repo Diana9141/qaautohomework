@@ -13,8 +13,8 @@ public class YakabooTest {
     private final SelenideElement searchInput = $("input[type=\"search\"]");
     private final SelenideElement marketingBanner = $(".cl-dialog-close-icon");
     private final SelenideElement firstBookFromSearch = $x("(//a[@data-testid=\"productLink\"])[1]");
-    private final SelenideElement paperBookPrice = $("div[class=\"ui-btn-format option-button selected\"]:first-child > div:nth-child(2)");
-    private final SelenideElement electronicBookPrice = $("div[class=\"ui-btn-format option-button selected\"]:nth-child(2)");
+    private final SelenideElement bookType = $("div.format__text");
+    private final SelenideElement bookPrice = $x("//div[@class=\"ui-price-display price simple selected\"]");
     private final SelenideElement availabilityButton = $x("(//button[@class=\"ui-btn-accept waiting-list button-accept\"])[1]");
 
     @BeforeMethod()
@@ -26,20 +26,19 @@ public class YakabooTest {
 
     @Test()
     void searchBook() {
-        String searchText = "Кіт";
+        String searchText = "Скотний двір";
         searchInput.setValue(searchText).pressEnter();
         firstBookFromSearch.should(visible).click();
         marketingBanner.click();
 
-        if (paperBookPrice.isDisplayed() && !(availabilityButton.exists())) {
-            System.out.println("Paper book is there: " + paperBookPrice.text());
-        } else if (electronicBookPrice.isDisplayed() && !(availabilityButton.exists())) {
-            System.out.println("Electronic book is there: " + electronicBookPrice.text());
+        if (bookPrice.isDisplayed() && bookType.text().equals("Паперова") && !(availabilityButton.exists())) {
+            System.out.println("Paper book is there: " + bookPrice.text());
+        } else if (bookPrice.isDisplayed() && bookType.text().equals("Електронна") && !(availabilityButton.exists())) {
+            System.out.println("Electronic book is there: " + bookPrice.text());
         } else {
-            System.out.println("NOT THERE");
+            System.out.println("BOOK IS NOT AVAILABLE");
         }
     }
-
 
     @AfterMethod
     static void tearDown() {
