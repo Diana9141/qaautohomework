@@ -15,7 +15,7 @@ public class IMDBTest {
 
         Object[][] movies = new Object[99][4];
 
-        for (int i = 1; i < 100; i++) {
+        for (int i = 1; i < movies.length; i++) {
             String title = $x("(//a[@class=\"ipc-title-link-wrapper\"])[" + i + "]").text().trim();
             String year = $x("((//span[@class=\"sc-1e00898e-8 hsHAHC cli-title-metadata-item\"]/..)[" + i + "])/child::*[1]").text();
             String rating = $x("(//span[@data-testid='ratingGroup--imdb-rating'])[" + i + "]").text().substring(0, 4);
