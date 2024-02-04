@@ -1,31 +1,35 @@
 package hw12.src.test;
 
-import com.browserup.bup.BrowserUpProxy;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.WebDriverRunner;
-import hw12.src.test.utils.DriverManager;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.BeforeMethod;
 
-import java.lang.reflect.Method;
-import java.util.Objects;
+
+import java.net.MalformedURLException;
+import java.util.HashMap;
 
 import static com.codeborne.selenide.Selenide.*;
 
 
 public class BaseTest {
-    protected String testCaseName;
-    protected BrowserUpProxy proxy;
+
 
     @BeforeMethod
-    public void setUp(Method method) {
-        this.testCaseName = method.getName();
-        DriverManager.init(testCaseName);
-        proxy = Objects.requireNonNull(WebDriverRunner.getSelenideProxy().getProxy());
+    public void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.setCapability("selenoid:options", new HashMap<String, Object>() {{
+            put("name", "Test badge...");
+            put("sessionTimeout", "15m");
+            put("enableVNC", true);
+            put("enableVideo", false);
+        }});
+
+        Configuration.browserCapabilities = options;
+        Configuration.baseUrl = "https://www.saucedemo.com/";
+        Configuration.browserSize = "1920x1080";
+        Configuration.remote = "http://localhost:4444/wd/hub";
+        open("");
         clearBrowserCookies();
         clearBrowserLocalStorage();
-
-        Configuration.baseUrl = "https//:www.saucedemo.com/";
-        Configuration.browserSize = "1920x1080";
-        open();
     }
 }
