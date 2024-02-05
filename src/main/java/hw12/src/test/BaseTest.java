@@ -4,8 +4,6 @@ import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.BeforeMethod;
 
-
-import java.net.MalformedURLException;
 import java.util.HashMap;
 
 import static com.codeborne.selenide.Selenide.*;

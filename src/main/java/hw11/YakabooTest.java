@@ -13,11 +13,9 @@ public class YakabooTest {
     private final SelenideElement searchInput = $("input[type=\"search\"]");
     private final SelenideElement marketingBanner = $(".cl-dialog-close-icon");
     private final SelenideElement firstBookFromSearch = $x("(//a[@data-testid=\"productLink\"])[1]");
-    private final SelenideElement bookType = $("div.format__text");
     private final SelenideElement bookPrice = $x("//div[@class=\"ui-price-display price simple selected\"]");
     private final SelenideElement availabilityButton = $x("(//button[@class=\"ui-btn-accept waiting-list button-accept\"])[1]");
     private final SelenideElement bookTypeSelected = $x("//div[@class='ui-btn-format option-button selected']/*[1]/*[2]");
-    private final SelenideElement buttonFormat2 = $("div.option-list > div:nth-child(2)");
 
     @BeforeMethod()
     public static void setUp() {
