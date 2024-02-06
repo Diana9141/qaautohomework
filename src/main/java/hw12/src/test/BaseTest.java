@@ -10,8 +10,6 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 public class BaseTest {
-
-
     @BeforeMethod
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
