@@ -1,9 +1,10 @@
-package hw12.src.pages;
+package hw12.srс.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -17,12 +18,13 @@ public class CartPage {
     private final SelenideElement removeBtn = $("#remove-sauce-labs-backpack");
     private final ElementsCollection prices = $$("div.inventory_item_price");
 
-    public CartPage checkCart() {
-        productTitle1.shouldBe(visible);
-        productTitle2.shouldBe(visible);
-        return this;
+    @Step("Check the exact titles pf products in the cart")
+    public void checkProductsTitle(String title1, String title2) {
+        productTitle1.shouldHave(text(title1));
+        productTitle2.shouldHave(text(title2));
     }
 
+    @Step("Go to checkout details")
     public CheckoutDetailsPage goToCheckoutDetails() {
         checkoutButton.click();
         return new CheckoutDetailsPage();

@@ -1,4 +1,4 @@
-package hw12.src.pages;
+package hw12.srс.pages;
 
 
 import com.codeborne.selenide.ElementsCollection;

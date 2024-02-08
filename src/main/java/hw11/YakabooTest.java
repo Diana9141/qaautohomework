@@ -26,7 +26,7 @@ public class YakabooTest {
 
     @Test()
     void searchBook() {
-        String searchText = "Pride And Prejudice";
+        String searchText = "1984";
         searchInput.setValue(searchText).pressEnter();
         firstBookFromSearch.should(visible).click();
         marketingBanner.click();

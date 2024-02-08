@@ -1,4 +1,4 @@
-package hw12.src.pages;
+package hw12.srс.pages;
 
 import com.codeborne.selenide.SelenideElement;
 
@@ -12,10 +12,10 @@ public class CheckoutDetailsPage {
     private final SelenideElement continueButton = $("#continue");
     private final SelenideElement cancelButton = $("#cancel");
 
-    public CheckoutOverviewPage fillDetails() {
-        firstNameField.setValue("Test");
-        lastNameField.setValue("Test");
-        postCodeField.setValue("00000");
+    public CheckoutOverviewPage fillDetails(String firstName, String lastName, String postCode) {
+        firstNameField.setValue(firstName);
+        lastNameField.setValue(lastName);
+        postCodeField.setValue(postCode);
         continueButton.click();
         return new CheckoutOverviewPage();
     }
