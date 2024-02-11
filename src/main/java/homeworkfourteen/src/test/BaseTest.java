@@ -1,32 +1,30 @@
 package homeworkfourteen.src.test;
 
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterMethod;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
+import homeworkfourteen.driver.Emulator;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.events.WebDriverListener;
 import org.testng.annotations.BeforeMethod;
 
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 
 public class BaseTest {
-    public AndroidDriver driver;
 
     @BeforeMethod
-    public void setup() throws MalformedURLException {
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("deviceName", "Pixel_3a");
-        caps.setCapability("platformName", "android");
-        caps.setCapability("automationName", "uiautomator2");
-        caps.setCapability("noReset", "false");
-        driver = new AndroidDriver(new URL("http://192.168.0.102:4723/"), caps);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        driver.quit();
+    static void open() {
+        closeWebDriver();
+        Configuration.browserSize = null;
+        Configuration.browser = Emulator.class.getName();
+        Configuration.timeout = 30000;
+        WebDriverRunner.addListener(new WebDriverListener() {
+            @Override
+            public void beforeClick(WebElement element) {
+                WebDriverListener.super.beforeClick(element);
+            }
+        });
+        Selenide.open();
     }
 }

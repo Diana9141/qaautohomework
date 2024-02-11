@@ -1,42 +1,38 @@
 package homeworkfourteen.src.pages;
 
-import io.appium.java_client.AppiumBy;
-import io.appium.java_client.AppiumDriver;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
+import static com.codeborne.selenide.Selenide.$;
+
 
 public class ProfilePage {
-    private final AppiumDriver driver;
 
-    public ProfilePage(AppiumDriver driver) {
-        this.driver = driver;
-    }
+    private final SelenideElement navigation = $(By.xpath("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]"));
+    private final SelenideElement importantMessages = $(By.xpath("//android.widget.TextView[@resource-id=\"com.google.android.gm:id/hub_drawer_label_title\" and @text=\"Important\"]"));
+    private final SelenideElement firstImportant = $(By.xpath("(//android.widget.ImageView[@resource-id=\"com.google.android.gm:id/contact_image\"])[1]"));
+    private final SelenideElement secondImportant = $(By.xpath("(//android.widget.ImageView[@resource-id=\"com.google.android.gm:id/contact_image\"])[2]"));
+    private final SelenideElement deleteBtn = $(By.xpath("//android.widget.Button[@content-desc=\"Delete\"]"));
+    private final SelenideElement fourthMessage = $(By.xpath("(//android.widget.TextView[@resource-id=\"com.google.android.gm:id/senders\"])[4]"));
 
-    By navigation = AppiumBy.accessibilityId("Open navigation drawer");
-    By importantMessages = AppiumBy.xpath("//android.widget.TextView[@resource-id=\"com.google.android.gm:id/hub_drawer_label_title\" and @text=\"Important\"]");
-    By firstImportant = AppiumBy.xpath("(//android.widget.ImageView[@resource-id=\"com.google.android.gm:id/contact_image\"])[1]");
-    By secondImportant = AppiumBy.xpath("(//android.widget.ImageView[@resource-id=\"com.google.android.gm:id/contact_image\"])[2]");
-    By deleteBtn = AppiumBy.xpath("//android.widget.Button[@content-desc=\"Delete\"]");
+    private final SelenideElement fifthMessage = $(By.xpath("(//android.widget.TextView[@resource-id=\"com.google.android.gm:id/senders\"])[5]"));
 
     public ProfilePage goToImportantSection() {
-        WebElement navEl = driver.findElement(navigation);
-        navEl.isDisplayed();
-        navEl.click();
-        WebElement impEl = driver.findElement(importantMessages);
-        impEl.isDisplayed();
-        impEl.click();
+        navigation.click();
+        importantMessages.click();
         return this;
     }
 
-    public void deleteImportantMessage() {
-        WebElement imp1 = driver.findElement(firstImportant);
-        imp1.isDisplayed();
-        imp1.click();
-        WebElement imp2 = driver.findElement(secondImportant);
-        imp2.isDisplayed();
-        imp2.click();
-        WebElement deleteEl = driver.findElement(deleteBtn);
-        deleteEl.isDisplayed();
-        deleteEl.click();
+    public ProfilePage deleteImportantMessage() {
+        firstImportant.click();
+        secondImportant.click();
+        deleteBtn.click();
+        return this;
+    }
+
+    public void checkMessagesDeleted() {
+        Assert.assertFalse(fourthMessage.exists());
+        Assert.assertFalse(fifthMessage.exists());
     }
 }
