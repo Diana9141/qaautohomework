@@ -18,6 +18,6 @@ public class GmailTest extends BaseTest {
                 .goToProfile();
         profilePage.goToImportantSection()
                 .deleteImportantMessage()
-                .checkMessagesDeleted();
+                .checkMessagesDeleted(profilePage.getFourthMessage(), profilePage.getFifthMessage());
     }
 }

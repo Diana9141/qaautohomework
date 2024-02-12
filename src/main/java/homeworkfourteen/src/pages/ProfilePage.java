@@ -1,12 +1,14 @@
 package homeworkfourteen.src.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
 import static com.codeborne.selenide.Selenide.$;
 
 
+@Getter
 public class ProfilePage {
 
     private final SelenideElement navigation = $(By.xpath("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]"));
@@ -31,8 +33,8 @@ public class ProfilePage {
         return this;
     }
 
-    public void checkMessagesDeleted() {
-        Assert.assertFalse(fourthMessage.exists());
-        Assert.assertFalse(fifthMessage.exists());
+    public void checkMessagesDeleted(SelenideElement first, SelenideElement second) {
+        Assert.assertFalse(first.exists());
+        Assert.assertFalse(second.exists());
     }
 }

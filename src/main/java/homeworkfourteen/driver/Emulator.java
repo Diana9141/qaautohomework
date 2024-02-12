@@ -18,7 +18,7 @@ public class Emulator implements WebDriverProvider {
     @Override
     @CheckReturnValue
     @Nonnull
-    public WebDriver createDriver(Capabilities capabilities) {
+    public WebDriver createDriver(@Nonnull Capabilities capabilities) {
         UiAutomator2Options options = new UiAutomator2Options();
         options.setDeviceName("Pixel_3a");
         options.setPlatformName("android");
