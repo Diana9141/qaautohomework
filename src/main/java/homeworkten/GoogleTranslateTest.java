@@ -43,6 +43,7 @@ public class GoogleTranslateTest {
     public static void setUp() {
         Configuration.baseUrl = "https://translate.google.com/?hl=uk";
         Configuration.browserSize = "1920x1080";
+        Configuration.timeout = 15000;
     }
 
     @Test(dataProvider = "languageCodesAndTranslations")
