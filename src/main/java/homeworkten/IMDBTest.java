@@ -17,7 +17,7 @@ public class IMDBTest {
 
         for (int i = 1; i < movies.length; i++) {
             String title = $x("(//a[@class=\"ipc-title-link-wrapper\"])[" + i + "]").text().trim();
-            String year = $x("((//span[@class=\"sc-1e00898e-8 hsHAHC cli-title-metadata-item\"]/..)[" + i + "])/child::*[1]").text();
+            String year = $x("((//span[@class=\"sc-be6f1408-8 fcCUPU cli-title-metadata-item\"]/..)[" + i + "])/child::*[1]").text();
             String rating = $x("(//span[@data-testid='ratingGroup--imdb-rating'])[" + i + "]").text().substring(0, 4);
             String movieUrl = $x("(//a[@class='ipc-title-link-wrapper'])[" + i + "]").attr("href");
             movies[i - 1] = new Object[]{title, year, rating, movieUrl};
